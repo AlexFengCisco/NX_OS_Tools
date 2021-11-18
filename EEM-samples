@@ -1,0 +1,19 @@
+event manager applet HIGH-CPU
+  event snmp oid 1.3.6.1.4.1.9.9.109.1.1.1.1.6.1 get-type exact entry-op ge entry-val 55 exit-op lt exit-val 40 poll-interval 1
+
+
+event manager applet log-sfp-voltage
+  event syslog pattern " Low Voltage "
+
+event manager applet module-temp-major
+
+event manager applet test
+  event snmp oid 1.3.6.1.4.1.9.9.109.1.1.1.1.6.1 get-type exact entry-op ge entry-val 55 exit-op lt exit-val 40 poll-interval 1
+  action 1.0 cli command "show clock >> bootflash:high-cpu.txt"
+
+
+event manager applet testcrc
+  event snmp oid 1.3.6.1.2.1.10.7.2.1.3.436232192 get-type exact entry-op ge entry-val 100 poll-interval 10
+  action 2.0 cli command "config t"
+  action 3.0 cli command "interface fc 1/7"
+  action 4.0 cli command "shut"
